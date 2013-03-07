@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="25dip"
+        android:stretchColumns="*" >
+
+        <TableRow
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dip" >
+
+            <TextView
+                android:id="@+id/taskLink"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@drawable/dashboard_menu_item"
+                android:clickable="true"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/tasks"
+                android:focusable="true"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="@string/menu_tasks"
+                android:textSize="@dimen/font_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/contactLink"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@drawable/dashboard_menu_item"
+                android:clickable="true"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/contacts"
+                android:focusable="true"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="@string/menu_contacts"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dip" >
+
+            <TextView
+                android:id="@+id/dealLink"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@drawable/dashboard_menu_item"
+                android:clickable="true"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/deals"
+                android:focusable="true"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Deals"
+                android:textSize="@dimen/font_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/caseLink"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@drawable/dashboard_menu_item"
+                android:clickable="true"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/cases"
+                android:focusable="true"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Cases"
+                android:textSize="@dimen/font_medium"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow android:layout_gravity="center" >
+
+            <TextView
+                android:id="@+id/settingsLink"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@drawable/dashboard_menu_item"
+                android:clickable="true"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/settings"
+                android:focusable="true"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Settings"
+                android:textSize="@dimen/font_medium"
+                android:textStyle="bold" />
+            
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>

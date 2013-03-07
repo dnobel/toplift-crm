@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Caching" >
+        <Preference
+            android:key="clearCache"
+            android:summary="Click clear the data cache"
+            android:title="Clear cache" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Account" >
+        <Preference
+            android:key="apiToken"
+            android:summary="..."
+            android:title="API Token" />
+        <Preference
+            android:key="logout"
+            android:summary="Click to logout from Highrise CRM"
+            android:title="Logout" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="App info" >
+        <Preference
+            android:key="producer"
+            android:summary="Dennis Nobel"
+            android:title="Producer" />
+        <Preference
+            android:key="version"
+            android:summary="@string/app_version"
+            android:title="Version" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/dealName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:textSize="@dimen/font_big"
+        android:textStyle="bold" />
+
+    <include layout="@layout/horizontal_line" />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@color/gray"
+            android:padding="0.5dp" >
+
+            <ImageView
+                android:id="@+id/dealPartyImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/images_contact_icon"
+                android:scaleType="fitStart" />
+        </FrameLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:padding="2dip" >
+
+            <TextView
+                android:id="@+id/dealParty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dealPartyType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/horizontal_line" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dealCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="category"
+        android:textSize="@dimen/font_medium" />
+
+    <include layout="@layout/horizontal_line" />
+   
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deal Status"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/dealStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="status"
+        android:textSize="@dimen/font_medium" />
+
+    <include layout="@layout/horizontal_line" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Background"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/dealBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_medium" />
+
+</LinearLayout>

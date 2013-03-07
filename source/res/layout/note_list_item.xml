@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/noteAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="by "
+        android:textSize="@dimen/font_small"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/noteBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BodyText"
+        android:textSize="@dimen/font_medium" />
+
+    <TextView
+        android:id="@+id/noteUpdatedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="at "
+        android:textColor="@color/gray"
+        android:textSize="@dimen/font_small" />
+    
+</LinearLayout>
