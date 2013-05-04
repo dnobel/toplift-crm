@@ -101,7 +101,6 @@
                 android:text="Settings"
                 android:textSize="@dimen/font_medium"
                 android:textStyle="bold" />
-            
         </TableRow>
     </TableLayout>
 

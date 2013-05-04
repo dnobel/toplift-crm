@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/progressBar"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:visibility="gone"
     android:background="@color/white"
-    android:gravity="center_vertical|center_horizontal" android:id="@+id/progressBar" >
+    android:gravity="center_vertical|center_horizontal"
+    android:visibility="gone" >
+
     <ProgressBar
         android:id="@+id/ProgressBar"
         android:layout_width="wrap_content"
@@ -15,8 +17,8 @@
         android:indeterminateOnly="true"
         android:isScrollContainer="true"
         android:soundEffectsEnabled="true" >
+    </ProgressBar>
 
-    </ProgressBar>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

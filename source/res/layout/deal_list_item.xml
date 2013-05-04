@@ -21,7 +21,7 @@
             android:scaleType="fitCenter" >
         </ImageView>
     </FrameLayout>
-
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:gravity="top"
         android:orientation="vertical"
         android:padding="2dip" >
-
+
         <TextView
             android:id="@+id/dealName"
             android:layout_width="match_parent"
@@ -54,4 +54,5 @@
                 android:textColor="@color/gray" />
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

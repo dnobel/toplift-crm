@@ -1,7 +1,7 @@
 <resources>
 
-    <string name="app_name">Highrise CRM Android</string>
-    <string name="app_version">0.10.a</string>
+    <string name="app_name">toplift CRM</string>
+    <string name="app_version">1.0.0</string>
     <string name="app_producer">Dennis Nobel</string>
     <string name="menu_activities">Activities</string>
     <string name="menu_contacts">Contacts</string>
@@ -16,7 +16,7 @@
     <string name="menu_save">Save</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_logout">Logout</string>
-    <string name="title_activity_home">Highrise CRM</string>
+    <string name="title_activity_home">toplift CRM</string>
     <string name="title_activity_contact_list">Contacts</string>
     <string name="title_activity_contact_detail">Contact</string>
     <string name="title_activity_contact_edit">Edit Contact</string>

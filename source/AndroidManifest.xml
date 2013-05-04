@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.nobel.highriseandroid"
+    package="org.nobel.topliftcrm"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -11,11 +11,12 @@
 
     <application
         android:debuggable="true"
-        android:icon="@drawable/highrise_logo"
+        android:icon="@drawable/toplift_crm_logo"
+        android:logo="@drawable/toplift_ab_icon"
         android:label="@string/app_name"
         android:theme="@style/Theme.blueapptheme" >
         <activity
-            android:name="org.nobel.highriseandroid.activities.LoginActivity"
+            android:name="org.nobel.topliftcrm.activities.LoginActivity"
             android:label="@string/title_activity_home"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter android:label="@string/app_name" >
@@ -25,51 +26,51 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.HomeActivity"
+            android:name="org.nobel.topliftcrm.activities.HomeActivity"
             android:label="@string/title_activity_home" >
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.contacts.ContactListActivity"
+            android:name="org.nobel.topliftcrm.activities.contacts.ContactListActivity"
             android:label="@string/title_activity_contact_list" >
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.contacts.ContactDetailActivity"
+            android:name="org.nobel.topliftcrm.activities.contacts.ContactDetailActivity"
             android:label="@string/title_activity_contact_detail" >
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.ActivityListActivity"
+            android:name="org.nobel.topliftcrm.activities.ActivityListActivity"
             android:label="@string/title_activity_activity_list" >
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.contacts.ContactEditActivity"
+            android:name="org.nobel.topliftcrm.activities.contacts.ContactEditActivity"
             android:label="@string/title_activity_contact_edit" >
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.tasks.TaskListActivity"
+            android:name="org.nobel.topliftcrm.activities.tasks.TaskListActivity"
             android:label="@string/title_activity_task_list" >
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.tasks.TaskDetailActivity"
+            android:name="org.nobel.topliftcrm.activities.tasks.TaskDetailActivity"
             android:label="@string/title_activity_task_detail" >
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.deals.DealListActivity"
+            android:name="org.nobel.topliftcrm.activities.deals.DealListActivity"
             android:label="@string/title_activity_deal_list" >
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.deals.DealDetailActivity"
+            android:name="org.nobel.topliftcrm.activities.deals.DealDetailActivity"
             android:label="@string/title_activity_deal_detail" >
         </activity>
         <activity
-            android:name="org.nobel.highriseandroid.activities.cases.CaseListActivity"
+            android:name="org.nobel.topliftcrm.activities.cases.CaseListActivity"
             android:label="@string/title_activity_case_list" >
         </activity>    
         <activity
-            android:name="org.nobel.highriseandroid.activities.cases.CaseDetailActivity"
+            android:name="org.nobel.topliftcrm.activities.cases.CaseDetailActivity"
             android:label="@string/title_activity_case_detail" >
         </activity>         
         <activity
-            android:name="org.nobel.highriseandroid.activities.SettingsActivity"
+            android:name="org.nobel.topliftcrm.activities.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
     </application>

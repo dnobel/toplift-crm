@@ -5,12 +5,11 @@
     android:orientation="vertical" >
 
     <include layout="@layout/loading" />
-    
+
     <ListView
         android:id="@+id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </ListView>
-
 
 </LinearLayout>

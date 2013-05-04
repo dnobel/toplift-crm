@@ -30,18 +30,18 @@
                 android:id="@+id/noteTextField"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Write Note..."
-                android:layout_weight="1" 
-                android:maxLines="3"
+                android:layout_weight="1"
                 android:gravity="top"
-                android:inputType="textMultiLine" >
+                android:hint="Write Note..."
+                android:inputType="textMultiLine"
+                android:maxLines="3" >
             </EditText>
 
             <Button
-                android:layout_marginLeft="5dp"
                 android:id="@+id/noteSendButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
                 android:text="Send" >
             </Button>

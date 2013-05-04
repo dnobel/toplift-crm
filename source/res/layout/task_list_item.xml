@@ -3,25 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dip">
+    android:padding="10dip" >
 
-
-
-    <TextView
-        android:id="@+id/taskBody"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="5dp"
-        android:textSize="@dimen/font_big"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
 
+        <CheckBox
+            android:id="@+id/taskCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:focusable="false"
+            android:clickable="false"
+            android:textSize="@dimen/font_big"
+            android:textStyle="bold" />
 
-
+        <TextView
+            android:id="@+id/taskBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="task body"
+            android:textSize="@dimen/font_big"
+            android:textStyle="bold" />
+        
+    </LinearLayout>
 
     <TextView
         android:id="@+id/taskFrame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
         android:text="Due at: "
         android:textColor="@color/gray" />
 

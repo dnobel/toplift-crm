@@ -5,7 +5,7 @@
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:padding="10dp" >
-
+
     <TextView
         android:id="@+id/noteAuthor"
         android:layout_width="wrap_content"
@@ -13,7 +13,7 @@
         android:text="by "
         android:textSize="@dimen/font_small"
         android:textStyle="bold" />
-
+
     <TextView
         android:id="@+id/noteBody"
         android:layout_width="wrap_content"
@@ -28,5 +28,5 @@
         android:text="at "
         android:textColor="@color/gray"
         android:textSize="@dimen/font_small" />
-    
+
 </LinearLayout>

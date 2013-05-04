@@ -5,8 +5,6 @@
     android:orientation="vertical"
     android:padding="10dip" >
 
-
-
     <TextView
         android:id="@+id/caseName"
         android:layout_width="match_parent"
