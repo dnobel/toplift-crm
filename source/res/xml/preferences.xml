@@ -9,6 +9,10 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="Account" >
         <Preference
+            android:key="highriseUrl"
+            android:summary="..."
+            android:title="Highrise CRM URL" />
+        <Preference
             android:key="apiToken"
             android:summary="..."
             android:title="API Token" />
@@ -27,4 +31,5 @@
             android:summary="@string/app_version"
             android:title="Version" />
     </PreferenceCategory>
+
 </PreferenceScreen>

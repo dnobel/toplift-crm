@@ -13,6 +13,7 @@ import org.nobel.topliftcrm.data.HighriseApiService;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -31,7 +32,7 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 
         private AlertDialog getClearCacheDialog() {
             AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-            builder.setTitle("Logout").setMessage("Logout from Highrise CRM?");
+            builder.setTitle("Clear cache").setMessage("Clear cache data?");
 
             builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
@@ -102,13 +103,16 @@ public class SettingsActivity extends SherlockPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         addPreferencesFromResource(R.xml.preferences);
         Preference clearCache = findPreference("clearCache");
         clearCache.setOnPreferenceClickListener(new ClearCacheOnClickListener());
         Preference logout = findPreference("logout");
         logout.setOnPreferenceClickListener(new LogoutOnClickListener());
         Preference apiToken = findPreference("apiToken");
-        apiToken.setSummary(HighriseApiService.getToken(getSharedPreferences(AppConstants.PREFERENCES, MODE_PRIVATE)));
+        SharedPreferences sharedPreferences = getSharedPreferences(AppConstants.PREFERENCES, MODE_PRIVATE);
+        apiToken.setSummary(HighriseApiService.getToken(sharedPreferences));
+        Preference highriseUrl = findPreference("highriseUrl");
+        highriseUrl.setSummary(HighriseApiService.getHighriseEndpointUrl(sharedPreferences));
     }
 }

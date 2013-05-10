@@ -10,7 +10,6 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal" >
@@ -31,7 +30,6 @@
             </FrameLayout>
 
             <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
@@ -73,7 +71,6 @@
                 android:id="@+id/position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Position"
                 android:textSize="@dimen/font_medium" />
         </LinearLayout>
 
@@ -95,7 +92,6 @@
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+0170 38 987 550"
                 android:textSize="@dimen/font_medium" />
         </LinearLayout>
 
@@ -117,7 +113,6 @@
                 android:id="@+id/mail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="dennis.nobel@itemis.de"
                 android:textSize="@dimen/font_medium" />
         </LinearLayout>
 
@@ -138,8 +133,7 @@
             <TextView
                 android:id="@+id/background"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
 
