@@ -25,13 +25,21 @@ public class LoadImageTask extends AsyncTask<Object, Void, Drawable> {
             this.entityWithImage = (EntityWithImage) parameters[2];
         }
 
-        return ImageUtil.createImageFromUrl((String) parameters[1]);
+        Drawable drawable = null;
+        try {
+            drawable = ImageUtil.createImageFromUrl((String) parameters[1]);
+        }
+        catch (Exception ex) {
+            cancel(true);
+        }
+
+        return drawable;
     }
 
     @Override
     protected void onPostExecute(final Drawable image) {
 
-        if (entityWithImage != null) {
+        if (entityWithImage != null && image != null) {
             entityWithImage.setImage(new AndroidEntityImage(image));
         }
 

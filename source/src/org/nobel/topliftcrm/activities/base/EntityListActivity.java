@@ -5,11 +5,12 @@ import java.util.List;
 import org.nobel.highriseapi.entities.base.Entity;
 import org.nobel.topliftcrm.R;
 import org.nobel.topliftcrm.activities.HomeActivity;
+import org.nobel.topliftcrm.data.LoadDataTask;
 import org.nobel.topliftcrm.util.ProgressVisualizationUtil;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -22,29 +23,35 @@ import com.actionbarsherlock.view.MenuItem;
 
 public abstract class EntityListActivity<T extends Entity> extends SherlockListActivity {
 
-    class LoadEntityListTask extends AsyncTask<Void, Void, List<T>> {
+    class LoadEntityListTask extends LoadDataTask<Void, Void, List<T>> {
 
         private final boolean manualRefresh;
 
-        public LoadEntityListTask(boolean manualRefresh) {
+        public LoadEntityListTask(Context context, boolean manualRefresh) {
+            super(context);
             this.manualRefresh = manualRefresh;
         }
 
         @Override
-        protected List<T> doInBackground(Void... args) {
+        protected List<T> doLoad(Void... args) {
             final List<T> entities = loadEntityList();
             return entities;
         }
 
         @Override
-        protected void onPostExecute(List<T> entities) {
-            setListAdapter(createListAdapter(entities));
-            ProgressVisualizationUtil.hideProgressbar(EntityListActivity.this);
+        protected void hideProgessbar() {
             ProgressVisualizationUtil.stopRotate(refreshItem, EntityListActivity.this);
+            ProgressVisualizationUtil.hideProgressbar(EntityListActivity.this);
         }
 
         @Override
-        protected void onPreExecute() {
+        protected void onPostExecute(List<T> entities) {
+            super.onPostExecute(entities);
+            setListAdapter(createListAdapter(entities));
+        }
+
+        @Override
+        protected void showProgessbar() {
             if (manualRefresh) {
                 ProgressVisualizationUtil.rotateRefreshItem(refreshItem, EntityListActivity.this);
             }
@@ -95,7 +102,7 @@ public abstract class EntityListActivity<T extends Entity> extends SherlockListA
     protected abstract Class<? extends Activity> getEntityDetailActivity();
 
     protected void loadData(boolean manualRefresh) {
-        new LoadEntityListTask(manualRefresh).execute();
+        new LoadEntityListTask(this, manualRefresh).execute();
     }
 
     protected abstract List<T> loadEntityList();
@@ -107,7 +114,7 @@ public abstract class EntityListActivity<T extends Entity> extends SherlockListA
         setContentView(R.layout.entity_list);
 
         ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         loadData(false);
     }

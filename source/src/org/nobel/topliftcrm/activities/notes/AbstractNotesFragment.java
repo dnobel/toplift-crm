@@ -6,12 +6,12 @@ import org.nobel.highriseapi.entities.Note;
 import org.nobel.highriseapi.resources.NoteResource;
 import org.nobel.topliftcrm.R;
 import org.nobel.topliftcrm.data.HighriseApiService;
+import org.nobel.topliftcrm.data.LoadDataTask;
 import org.nobel.topliftcrm.util.ProgressVisualizationUtil;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -28,60 +28,83 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public abstract class AbstractNotesFragment extends SherlockListFragment implements OnClickListener {
-    class CreateNoteTask extends AsyncTask<Note, Void, Void> {
+    class CreateNoteTask extends LoadDataTask<Note, Void, Void> {
+
         private int entityId;
+
         private ProgressDialog progressDialog;
 
+        public CreateNoteTask(Context context) {
+            super(context);
+        }
+
         @Override
-        protected Void doInBackground(Note... notes) {
+        protected Void doLoad(Note... notes) {
             createDealNote(entityId, notes[0]);
             return null;
         }
 
         @Override
+        protected void hideProgessbar() {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
+        @Override
         protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
             setListAdapter(new NoteListAdapter(getActivity(), getNotes(entityId)));
             getNoteBodyTextField().setText("");
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getNoteBodyTextField().getWindowToken(), 0);
-            progressDialog.dismiss();
         }
 
         @Override
         protected void onPreExecute() {
             entityId = getEntityId();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void showProgessbar() {
             progressDialog = ProgressDialog.show(AbstractNotesFragment.this.getActivity(), "Create Note",
                     "Creating note...");
-
         }
 
     }
 
-    class LoadNotesTask extends AsyncTask<Void, Void, List<Note>> {
+    class LoadNotesTask extends LoadDataTask<Void, Void, List<Note>> {
 
         private final int entityId;
         private final boolean manualRefresh;
 
-        public LoadNotesTask(boolean manualRefresh, int entityId) {
+        public LoadNotesTask(Context context, boolean manualRefresh, int entityId) {
+            super(context);
             this.manualRefresh = manualRefresh;
             this.entityId = entityId;
         }
 
         @Override
-        protected List<Note> doInBackground(Void... args) {
+        protected List<Note> doLoad(Void... args) {
             final List<Note> notes = getNotes(entityId);
             return notes;
         }
 
         @Override
-        protected void onPostExecute(List<Note> notes) {
-            setListAdapter(new NoteListAdapter(getActivity(), notes));
+        protected void hideProgessbar() {
             ProgressVisualizationUtil.hideProgressbar(getActivity());
             ProgressVisualizationUtil.stopRotate(refreshItem, getActivity());
         }
 
         @Override
-        protected void onPreExecute() {
+        protected void onPostExecute(List<Note> notes) {
+            super.onPostExecute(notes);
+            setListAdapter(new NoteListAdapter(getActivity(), notes));
+        }
+
+        @Override
+        protected void showProgessbar() {
             if (manualRefresh) {
                 ProgressVisualizationUtil.rotateRefreshItem(refreshItem, getActivity());
             }
@@ -117,7 +140,7 @@ public abstract class AbstractNotesFragment extends SherlockListFragment impleme
         Note note = new Note();
         note.setBody(noteBodyTextField.getText().toString());
 
-        new CreateNoteTask().execute(note);
+        new CreateNoteTask(getActivity()).execute(note);
     }
 
     @Override
@@ -172,7 +195,7 @@ public abstract class AbstractNotesFragment extends SherlockListFragment impleme
 
     private void loadNotes(boolean manualRefresh) {
         int entityId = getEntityId();
-        new LoadNotesTask(manualRefresh, entityId).execute();
+        new LoadNotesTask(getActivity(), manualRefresh, entityId).execute();
     }
 
 }
