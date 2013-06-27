@@ -62,7 +62,7 @@ public abstract class EntityListActivity<T extends Entity> extends SherlockListA
 
     }
 
-    private MenuItem refreshItem;
+    protected MenuItem refreshItem;
 
     @SuppressWarnings("unchecked")
     @Override

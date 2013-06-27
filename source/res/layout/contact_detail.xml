@@ -71,6 +71,7 @@
                 android:id="@+id/position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textSize="@dimen/font_medium" />
         </LinearLayout>
 
@@ -92,6 +93,7 @@
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textSize="@dimen/font_medium" />
         </LinearLayout>
 
@@ -113,6 +115,7 @@
                 android:id="@+id/mail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textSize="@dimen/font_medium" />
         </LinearLayout>
 

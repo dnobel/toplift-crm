@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">toplift CRM</string>
-    <string name="app_version">1.0.0</string>
+    <string name="app_version">1.1.1</string>
     <string name="app_producer">Dennis Nobel</string>
     <string name="menu_activities">Activities</string>
     <string name="menu_contacts">Contacts</string>
@@ -15,6 +15,7 @@
     <string name="menu_delete">Delete</string>
     <string name="menu_save">Save</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="menu_search">Search</string>
     <string name="menu_logout">Logout</string>
     <string name="title_activity_home">toplift CRM</string>
     <string name="title_activity_contact_list">Contacts</string>

@@ -14,27 +14,35 @@ import android.widget.TextView;
 public abstract class EntityListAdapter<T extends Entity> extends BaseAdapter {
 
     protected final Context context;
-    protected final List<T> entities;
+    protected List<T> entities;
 
     public EntityListAdapter(Context context, List<T> entities) {
         this.context = context;
-        this.entities = entities;
+        setEntities(entities);
     }
 
+    @Override
     public int getCount() {
         return entities.size();
     }
 
+    public List<T> getEntities() {
+        return entities;
+    }
+
+    @Override
     public T getItem(int pos) {
         return entities.get(pos);
     }
 
+    @Override
     public long getItemId(int pos) {
         return -1;
     }
 
     public abstract int getListItemLayoutId();
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View entityListItemView = inflater.inflate(getListItemLayoutId(), parent, false);
@@ -46,8 +54,17 @@ public abstract class EntityListAdapter<T extends Entity> extends BaseAdapter {
 
     public abstract void renderListItem(View entityListItemView, T entity);
 
+    public void setEntities(List<T> entities) {
+        this.entities = entities;
+        sort(this.entities);
+    }
+
     protected void setText(View view, int textViewId, String text) {
         TextView textView = (TextView) view.findViewById(textViewId);
         textView.setText(text);
+    }
+
+    protected void sort(List<T> entities) {
+
     }
 }

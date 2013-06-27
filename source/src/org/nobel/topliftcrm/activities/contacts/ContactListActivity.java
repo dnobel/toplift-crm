@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.nobel.highriseapi.entities.Person;
 import org.nobel.highriseapi.resources.PersonResource;
+import org.nobel.topliftcrm.R;
 import org.nobel.topliftcrm.activities.base.EntityDetailActivity;
 import org.nobel.topliftcrm.activities.base.EntityListActivity;
 import org.nobel.topliftcrm.activities.base.EntityListAdapter;
@@ -12,6 +13,13 @@ import org.nobel.topliftcrm.data.LoadDataTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+
+import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.widget.SearchView;
+import com.actionbarsherlock.widget.SearchView.OnQueryTextListener;
+
 
 public class ContactListActivity extends EntityListActivity<Person> {
 
@@ -32,7 +40,7 @@ public class ContactListActivity extends EntityListActivity<Person> {
 
         @Override
         protected void hideProgessbar() {
-            if(progressDialog != null) {
+            if (progressDialog != null) {
                 progressDialog.dismiss();
             }
         }
@@ -48,6 +56,34 @@ public class ContactListActivity extends EntityListActivity<Person> {
             progressDialog = ProgressDialog.show(ContactListActivity.this, "Loading contacts", "Loading contacts...");
         }
 
+    }
+
+    @Override
+    public ContactListAdapter getListAdapter() {
+        return (ContactListAdapter) super.getListAdapter();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.searchable_list, menu);
+        refreshItem = menu.findItem(R.id.refresh);
+        SearchView searchView = (SearchView) ((MenuItemWrapper) menu.findItem(R.id.search)).getActionView();
+        searchView.setOnQueryTextListener(new OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                getListAdapter().getFilter().filter(newText);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                getListAdapter().getFilter().filter(query);
+                return true;
+            }
+        });
+        return true;
     }
 
     @Override
@@ -69,4 +105,5 @@ public class ContactListActivity extends EntityListActivity<Person> {
     protected List<Person> loadEntityList() {
         return HighriseApiService.getInstance(this).getResource(PersonResource.class).getAll();
     }
+
 }
