@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.RejectedExecutionException;
 
 import org.nobel.highriseapi.entities.Person;
 import org.nobel.highriseapi.entities.base.EntityImage;
@@ -15,6 +16,7 @@ import org.nobel.topliftcrm.util.LoadImageTask;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -75,7 +77,13 @@ public class ContactListAdapter extends EntityListAdapter<Person> implements Fil
             userIcon.setImageDrawable(((AndroidEntityImage) contact.getImage()).getDrawable());
         }
         else {
-            new LoadImageTask((Activity) context).execute(userIcon, contact.getAvatarUrl(), contact);
+            try {
+                new LoadImageTask((Activity) context).execute(userIcon, contact.getAvatarUrl(), contact);
+            }
+            catch (RejectedExecutionException ex) {
+                Log.e(ContactListAdapter.class.getSimpleName(),
+                        "Could not start AsyncTask to load image: " + ex.getMessage());
+            }
         }
 
     }
