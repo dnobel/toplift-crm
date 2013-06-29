@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <item type="color" name="white">#FFF</item>
+    <item type="color" name="darkgray">#333</item>
     <item type="color" name="gray">#999</item>
     <item type="color" name="light_gray">#CECECE</item>
     <item type="color" name="blue">#DCE1F0</item> 

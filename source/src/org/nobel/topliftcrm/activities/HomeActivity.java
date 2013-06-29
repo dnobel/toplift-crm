@@ -2,6 +2,7 @@ package org.nobel.topliftcrm.activities;
 
 import org.nobel.topliftcrm.AppConstants;
 import org.nobel.topliftcrm.R;
+import org.nobel.topliftcrm.activities.NavigationListAdapter.NavigationItem;
 import org.nobel.topliftcrm.activities.cases.CaseListActivity;
 import org.nobel.topliftcrm.activities.contacts.ContactListActivity;
 import org.nobel.topliftcrm.activities.deals.DealListActivity;
@@ -10,49 +11,79 @@ import org.nobel.topliftcrm.data.HighriseApiService;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class HomeActivity extends SherlockActivity implements OnClickListener {
+public class HomeActivity extends SherlockActivity {
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.taskLink:
-                startActivity(new Intent(this, TaskListActivity.class));
-                break;
-            case R.id.contactLink:
-                startActivity(new Intent(this, ContactListActivity.class));
-                break;
-            case R.id.dealLink:
-                startActivity(new Intent(this, DealListActivity.class));
-                break;
-            case R.id.caseLink:
-                startActivity(new Intent(this, CaseListActivity.class));
-                break;
-            case R.id.settingsLink:
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
-            default:
-                break;
-        }
-    }
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
 
-        findViewById(R.id.taskLink).setOnClickListener(this);
-        findViewById(R.id.contactLink).setOnClickListener(this);
-        findViewById(R.id.dealLink).setOnClickListener(this);
-        findViewById(R.id.caseLink).setOnClickListener(this);
-        findViewById(R.id.settingsLink).setOnClickListener(this);
+        drawerList = (ListView) findViewById(R.id.left_drawer);
+        drawerList.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long rowId) {
+                drawerLayout.closeDrawer(drawerList);
+                NavigationItem navigationItem = NavigationItem.getByItemIndex(pos + 1);
+                switch (navigationItem) {
+                    case TASKS:
+                        startActivity(new Intent(HomeActivity.this, TaskListActivity.class));
+                        break;
+                    case CONTACTS:
+                        startActivity(new Intent(HomeActivity.this, ContactListActivity.class));
+                        break;
+                    case DEALS:
+                        startActivity(new Intent(HomeActivity.this, DealListActivity.class));
+                        break;
+                    case CASES:
+                        startActivity(new Intent(HomeActivity.this, CaseListActivity.class));
+                        break;
+                    case SETTINGS:
+                        startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        drawerList.setAdapter(new NavigationListAdapter(this));
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open,
+                R.string.drawer_close) {
+
+            @Override
+            public void onDrawerClosed(View view) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+        };
+
+        drawerLayout.setDrawerListener(drawerToggle);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
@@ -70,7 +101,23 @@ public class HomeActivity extends SherlockActivity implements OnClickListener {
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;
+
+            case android.R.id.home:
+                if (drawerLayout.isDrawerOpen(drawerList)) {
+                    drawerLayout.closeDrawer(drawerList);
+                }
+                else {
+                    drawerLayout.openDrawer(drawerList);
+                }
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
     }
 }
