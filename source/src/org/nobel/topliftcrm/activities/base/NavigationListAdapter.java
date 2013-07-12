@@ -1,4 +1,4 @@
-package org.nobel.topliftcrm.activities;
+package org.nobel.topliftcrm.activities.base;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,11 +21,12 @@ public class NavigationListAdapter extends BaseAdapter {
 
     public enum NavigationItem {
 
-        CASES(R.string.menu_cases, R.drawable.cases, 4),
-        CONTACTS(R.string.menu_contacts, R.drawable.contacts, 2),
-        DEALS(R.string.menu_deals, R.drawable.deals, 3),
-        SETTINGS(R.string.menu_settings, R.drawable.settings, 5),
-        TASKS(R.string.menu_tasks, R.drawable.tasks, 1);
+        CASES(R.string.menu_cases, R.drawable.cases, 5),
+        CONTACTS(R.string.menu_contacts, R.drawable.contacts, 3),
+        DEALS(R.string.menu_deals, R.drawable.deals, 4),
+        HOME(R.string.menu_home, R.drawable.home, 1),
+        SETTINGS(R.string.menu_settings, R.drawable.settings, 6),
+        TASKS(R.string.menu_tasks, R.drawable.tasks, 2);
 
         public static NavigationItem getByItemIndex(int itemIndex) {
             NavigationItem[] navigationItems = NavigationItem.values();

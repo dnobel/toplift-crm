@@ -1,95 +1,40 @@
 package org.nobel.topliftcrm.activities;
 
+import java.util.List;
+
+import org.nobel.highriseapi.entities.Recording;
+import org.nobel.highriseapi.resources.RecordingsResource;
 import org.nobel.topliftcrm.AppConstants;
 import org.nobel.topliftcrm.R;
-import org.nobel.topliftcrm.activities.NavigationListAdapter.NavigationItem;
-import org.nobel.topliftcrm.activities.cases.CaseListActivity;
-import org.nobel.topliftcrm.activities.contacts.ContactListActivity;
-import org.nobel.topliftcrm.activities.deals.DealListActivity;
-import org.nobel.topliftcrm.activities.tasks.TaskListActivity;
+import org.nobel.topliftcrm.activities.base.EntityListActivity;
+import org.nobel.topliftcrm.activities.base.EntityListAdapter;
 import org.nobel.topliftcrm.data.HighriseApiService;
+import org.nobel.topliftcrm.util.AppUtils;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
+import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class HomeActivity extends SherlockActivity {
-
-    private DrawerLayout drawerLayout;
-    private ListView drawerList;
-    private ActionBarDrawerToggle drawerToggle;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_home);
-
-        drawerList = (ListView) findViewById(R.id.left_drawer);
-        drawerList.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long rowId) {
-                drawerLayout.closeDrawer(drawerList);
-                NavigationItem navigationItem = NavigationItem.getByItemIndex(pos + 1);
-                switch (navigationItem) {
-                    case TASKS:
-                        startActivity(new Intent(HomeActivity.this, TaskListActivity.class));
-                        break;
-                    case CONTACTS:
-                        startActivity(new Intent(HomeActivity.this, ContactListActivity.class));
-                        break;
-                    case DEALS:
-                        startActivity(new Intent(HomeActivity.this, DealListActivity.class));
-                        break;
-                    case CASES:
-                        startActivity(new Intent(HomeActivity.this, CaseListActivity.class));
-                        break;
-                    case SETTINGS:
-                        startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-        drawerList.setAdapter(new NavigationListAdapter(this));
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open,
-                R.string.drawer_close) {
-
-            @Override
-            public void onDrawerClosed(View view) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-
-            }
-        };
-
-        drawerLayout.setDrawerListener(drawerToggle);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-    }
+public class HomeActivity extends EntityListActivity<Recording> {
+    private static final String NAV_DRAWER_ALREADY_USED = "NAV_DRAWER_ALREADY_USED";
+    private static final int TWO_SECONDS = 2000;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.home, menu);
+        refreshItem = menu.findItem(R.id.refresh);
         return true;
     }
 
@@ -102,22 +47,81 @@ public class HomeActivity extends SherlockActivity {
                 finish();
                 return true;
 
-            case android.R.id.home:
-                if (drawerLayout.isDrawerOpen(drawerList)) {
-                    drawerLayout.closeDrawer(drawerList);
-                }
-                else {
-                    drawerLayout.openDrawer(drawerList);
-                }
-                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void clearEntityList() {
+        HighriseApiService.getInstance(this).getResource(RecordingsResource.class).clear();
+    }
+
+    @Override
+    protected EntityListAdapter<Recording> createListAdapter(List<Recording> entities) {
+        return new RecordingListAdapter(this, entities);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.home;
+    }
+
+    @Override
+    protected Class<? extends Activity> getEntityDetailActivity() {
+        return null;
+    }
+
+    @Override
+    protected List<Recording> loadEntityList() {
+        return HighriseApiService.getInstance(this).getResource(RecordingsResource.class).getAll();
+    }
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getListView().setDivider(null);
+        getListView().setDividerHeight(0);
+        getListView().getRootView().setBackgroundColor(getResources().getColor(R.color.background));
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        getListView().addHeaderView(inflater.inflate(R.layout.recordings_header, null));
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        // do nothing
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        drawerToggle.syncState();
+        showNavDrawerIfAppIsUsedTheFirstTime();
+    }
+
+    private void setNavDrawerIsAlreadyUsedToTrue(SharedPreferences appPreferences) {
+        Editor editor = appPreferences.edit();
+        editor.putBoolean(NAV_DRAWER_ALREADY_USED, true);
+        editor.commit();
+    }
+
+    private void showNavDrawerIfAppIsUsedTheFirstTime() {
+        SharedPreferences appPreferences = AppUtils.getAppPreferences(this);
+        boolean navDrawerAlreadyUsed = appPreferences.getBoolean(NAV_DRAWER_ALREADY_USED, false);
+        if(!navDrawerAlreadyUsed) {
+            setNavDrawerIsAlreadyUsedToTrue(appPreferences);
+            toggleNavDrawerAfterOneSecond();
+        }
+    }
+
+    private void toggleNavDrawerAfterOneSecond() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getNavDrawer().toggleNavDrawer();
+            }
+        }, TWO_SECONDS);
     }
 }

@@ -10,4 +10,5 @@
     <item type="color" name="deal_status_won">#006400</item>
     <item type="color" name="deal_status_lost">#8B0000</item>
     <item type="color" name="deal_status_pending">#00008B</item>
+    <item type="color" name="background">#E6E6E6</item>
 </resources>

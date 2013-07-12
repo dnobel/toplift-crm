@@ -8,6 +8,7 @@ import org.nobel.highriseapi.resources.PersonResource;
 import org.nobel.highriseapi.resources.TaskResource;
 import org.nobel.topliftcrm.AppConstants;
 import org.nobel.topliftcrm.R;
+import org.nobel.topliftcrm.activities.base.ActivityNavDrawer;
 import org.nobel.topliftcrm.data.HighriseApiService;
 
 import android.app.AlertDialog;
@@ -86,12 +87,12 @@ public class SettingsActivity extends SherlockPreferenceActivity {
         }
     }
 
+    private ActivityNavDrawer navDrawer;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            navDrawer.toggleNavDrawer();
             return true;
         }
         else {
@@ -103,7 +104,9 @@ public class SettingsActivity extends SherlockPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.setings);
+        navDrawer = new ActivityNavDrawer(this, getSupportActionBar());
+        navDrawer.create();
         addPreferencesFromResource(R.xml.preferences);
         Preference clearCache = findPreference("clearCache");
         clearCache.setOnPreferenceClickListener(new ClearCacheOnClickListener());
@@ -114,5 +117,11 @@ public class SettingsActivity extends SherlockPreferenceActivity {
         apiToken.setSummary(HighriseApiService.getToken(sharedPreferences));
         Preference highriseUrl = findPreference("highriseUrl");
         highriseUrl.setSummary(HighriseApiService.getHighriseEndpointUrl(sharedPreferences));
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        navDrawer.syncState();
     }
 }

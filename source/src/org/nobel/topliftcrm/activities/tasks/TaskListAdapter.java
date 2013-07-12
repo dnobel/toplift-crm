@@ -28,15 +28,15 @@ public class TaskListAdapter extends EntityListAdapter<Task> {
 
     @Override
     public void renderListItem(View taskListItem, Task task) {
-		TextView taskBodyText = (TextView) taskListItem.findViewById(R.id.taskBody);
-		CheckBox taskCheckBox = (CheckBox) taskListItem.findViewById(R.id.taskCheckbox);
+        TextView taskBodyText = (TextView) taskListItem.findViewById(R.id.taskBody);
+        CheckBox taskCheckBox = (CheckBox) taskListItem.findViewById(R.id.taskCheckbox);
         taskBodyText.setText(task.getBody());
 
         if (activity.getSelectedTaskList() == TaskList.COMPLETED) {
             taskBodyText.setPaintFlags(taskBodyText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-			taskCheckBox.setChecked(true);
-		} else {
-			taskCheckBox.setChecked(false);
+            taskCheckBox.setChecked(true);
+        } else {
+            taskCheckBox.setChecked(false);
         }
 
         TextView taskFrameText = (TextView) taskListItem.findViewById(R.id.taskFrame);

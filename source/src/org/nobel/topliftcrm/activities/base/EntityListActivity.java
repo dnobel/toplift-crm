@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.nobel.highriseapi.entities.base.Entity;
 import org.nobel.topliftcrm.R;
-import org.nobel.topliftcrm.activities.HomeActivity;
 import org.nobel.topliftcrm.data.LoadDataTask;
 import org.nobel.topliftcrm.util.ProgressVisualizationUtil;
 
@@ -15,14 +14,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public abstract class EntityListActivity<T extends Entity> extends SherlockListActivity {
-
     class LoadEntityListTask extends LoadDataTask<Void, Void, List<T>> {
 
         private final boolean manualRefresh;
@@ -64,6 +61,8 @@ public abstract class EntityListActivity<T extends Entity> extends SherlockListA
 
     protected MenuItem refreshItem;
 
+    private ActivityNavDrawer navDrawer;
+
     @SuppressWarnings("unchecked")
     @Override
     public EntityListAdapter<T> getListAdapter() {
@@ -86,9 +85,7 @@ public abstract class EntityListActivity<T extends Entity> extends SherlockListA
                 loadData(true);
                 return true;
             case android.R.id.home:
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                navDrawer.toggleNavDrawer();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -99,7 +96,15 @@ public abstract class EntityListActivity<T extends Entity> extends SherlockListA
 
     protected abstract EntityListAdapter<T> createListAdapter(List<T> entities);
 
+    protected int getContentView() {
+        return R.layout.entity_list;
+    }
+
     protected abstract Class<? extends Activity> getEntityDetailActivity();
+
+    protected ActivityNavDrawer getNavDrawer() {
+        return navDrawer;
+    }
 
     protected void loadData(boolean manualRefresh) {
         new LoadEntityListTask(this, manualRefresh).execute();
@@ -111,10 +116,10 @@ public abstract class EntityListActivity<T extends Entity> extends SherlockListA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.entity_list);
+        setContentView(getContentView());
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        navDrawer = new ActivityNavDrawer(this, getSupportActionBar());
+        navDrawer.create();
 
         loadData(false);
     }
@@ -125,5 +130,11 @@ public abstract class EntityListActivity<T extends Entity> extends SherlockListA
         Intent intent = new Intent(this, getEntityDetailActivity());
         intent.putExtra(EntityDetailActivity.ENTITY_ID, entity.getId());
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        navDrawer.syncState();
     }
 }

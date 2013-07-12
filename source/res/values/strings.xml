@@ -1,9 +1,10 @@
 <resources>
 
     <string name="app_name">toplift CRM</string>
-    <string name="app_version">1.1.1</string>
+    <string name="app_version">1.2</string>
     <string name="app_producer">Dennis Nobel</string>
     <string name="menu_activities">Activities</string>
+    <string name="menu_home">Home</string>
     <string name="menu_contacts">Contacts</string>
     <string name="menu_deals">Deals</string>
     <string name="menu_cases">Cases</string>
