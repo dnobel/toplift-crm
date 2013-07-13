@@ -1,0 +1,1 @@
+mvn clean install -Psign -Dandroid-build
