@@ -17,7 +17,10 @@
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-
+ 	<style name="Theme.blueapptheme.nav" parent="Theme.blueapptheme">
+        <item name="homeAsUpIndicator">@drawable/ic_drawer</item>
+    </style>
+    
     <style name="Theme.blueapptheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="actionBarItemBackground">@drawable/selectable_background_blueapptheme</item>
         <item name="popupMenuStyle">@style/blueapptheme_PopupMenu</item>
