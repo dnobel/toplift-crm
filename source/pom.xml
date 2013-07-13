@@ -113,7 +113,17 @@
 					<plugin>
 						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 						<artifactId>android-maven-plugin</artifactId>
+						<version>3.6.0</version>
 						<inherited>true</inherited>
+						<executions>
+							<execution>
+								<id>zip-align</id>
+								<goals>
+									<goal>zipalign</goal>
+								</goals>
+								<phase>install</phase>
+							</execution>
+						</executions>
 						<configuration>
 							<sign>
 								<debug>false</debug>

@@ -1,5 +1,6 @@
 package org.nobel.topliftcrm.activities;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.nobel.highriseapi.entities.Recording;
@@ -35,6 +36,12 @@ public class RecordingListAdapter extends EntityListAdapter<Recording> {
 
         TextView bodyTextView = (TextView) view.findViewById(R.id.body);
         bodyTextView.setText(recording.getBody());
+    }
+
+    @Override
+    protected void sort(List<Recording> entities) {
+        Collections.sort(entities);
+        Collections.reverse(entities);
     }
 
     private String getSubjectTypeText(SubjectType subjectType) {
