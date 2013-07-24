@@ -96,10 +96,13 @@ public class ContactListAdapter extends EntityListAdapter<Person> implements Fil
             public int compare(Person lhs, Person rhs) {
                 String lhsLastName = lhs.getLastName();
                 String rhsLastName = rhs.getLastName();
-                if (lhsLastName != null) {
+                if (lhsLastName != null && rhsLastName != null) {
                     return lhsLastName.compareTo(rhsLastName);
                 }
-                else if(rhsLastName != null) {
+                else if (lhsLastName != null) {
+                    return -1;
+                }
+                else if (rhsLastName != null) {
                     return 1;
                 } else {
                     return 0;
