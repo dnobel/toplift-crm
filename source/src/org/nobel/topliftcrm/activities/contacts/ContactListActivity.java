@@ -14,7 +14,6 @@ import org.nobel.topliftcrm.data.LoadDataTask;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.widget.SearchView;
@@ -68,7 +67,7 @@ public class ContactListActivity extends EntityListActivity<Person> {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.searchable_list, menu);
         refreshItem = menu.findItem(R.id.refresh);
-        SearchView searchView = (SearchView) ((MenuItemWrapper) menu.findItem(R.id.search)).getActionView();
+		SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setOnQueryTextListener(new OnQueryTextListener() {
 
             @Override
